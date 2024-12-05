@@ -56,7 +56,7 @@ public class Read_All_Blocks_Example {
                 }
 
                 // Print out block information
-                if (axis != null) {
+                if (axis == null) {
                     System.out.println("Block at (" + x + ", " + y + ", " + z + "): " + block_id);
                 } else {
                     // Prints with the axis placement. E.g. It's facing on the axis X - then it would show "x"
