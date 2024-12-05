@@ -47,21 +47,35 @@ public class Read_All_Blocks_Example {
 
                 // Check for specific properties
                 String axis = null;
+                String facing = null;
+                String waterlogged = null;
                 if (blockState.contains("Properties")) {
                     NbtCompound properties = blockState.getCompound("Properties");
 
                     if (properties.contains("axis")) {
                         axis = properties.getString("axis");
                     }
+                    if (properties.contains("facing")) {
+                        facing = properties.getString("facing");
+                    }
+                    if (properties.contains("waterlogged")) {
+                        waterlogged = properties.getString("waterlogged"); // For some reason it's a bool as a string..
+                    }
                 }
 
                 // Print out block information
-                if (axis == null) {
-                    System.out.println("Block at (" + x + ", " + y + ", " + z + "): " + block_id);
-                } else {
-                    // Prints with the axis placement. E.g. It's facing on the axis X - then it would show "x"
-                    System.out.println("Block at (" + x + ", " + y + ", " + z + "): " + block_id + " with axis " + axis);
+                String added_info = "";
+                if (axis != null) {
+                    added_info += " | with axis " + axis;
                 }
+                if (facing != null) {
+                    added_info += " | facing in direction " + facing;
+                }
+                if (waterlogged != null) {
+                    added_info += " | its waterlogged value is " + waterlogged;
+                }
+
+                System.out.println("Block at (" + x + ", " + y + ", " + z + "): " + block_id + added_info);
             }
         }
     }
