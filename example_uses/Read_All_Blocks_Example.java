@@ -7,7 +7,7 @@ import net.minecraft.network.packet.Packet;
 public class Read_All_Blocks_Example {
     public static void example() {
         NbtCompound structure_nbt_compound = StructureReader.read_structure_file(
-                "PATH_TO_NBT_FILE.nbt"
+                "PATH_TO_NBT_FILE.nbt" // E.g. "./basic_house.nbt"
         );
 
         if (structure_nbt_compound != null) {
