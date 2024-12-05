@@ -30,11 +30,14 @@ public class StructureReader {
             NbtElement size =  structure_nbt_compound.get("size");
             NbtElement blocks =  structure_nbt_compound.get("blocks");
             NbtElement entities =  structure_nbt_compound.get("entities");
+            NbtElement palette =  structure_nbt_compound.get("palette");
+            
 
             System.out.println("Loaded structure: " + file.getName());
             System.out.println("Size: " + size);
             System.out.println("Blocks: " + blocks);
-            System.out.println("Entities: " + entities);
+            System.out.println("Blocks: " + blocks);
+            System.out.println("Palette: " + palette);
             System.out.println("Data Version: " + data_version);
 
             return structure_nbt_compound;
