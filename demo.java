@@ -4,7 +4,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class StructureReader {
-    public static NbtCompound read_structure_file(String filepath, boolean is_compressed) {
+    public static NbtCompound read_structure_file(String filepath) {
         try {
             Path path = Paths.get(filepath);
 
@@ -14,10 +14,12 @@ public class StructureReader {
             InputStream inputStream = new FileInputStream(file);
 
             NbtCompound structure_nbt_compound;
-            if (is_compressed) {
-                structure_nbt_compound = NbtIo.readCompressed(inputStream, NbtSizeTracker.ofUnlimitedBytes());
-            } else {
+            try {
+                // Try to read it as uncompressed
                 structure_nbt_compound = NbtIo.read(path);
+            } catch (Exception e) {
+                // Assume it is actually compressed and read it this way
+                structure_nbt_compound = NbtIo.readCompressed(inputStream, NbtSizeTracker.ofUnlimitedBytes());
             }
 
             if (structure_nbt_compound == null) {
@@ -40,7 +42,7 @@ public class StructureReader {
         } catch (FileNotFoundException e) {
             System.out.println("Could not find structure nbt file!");
         } catch (IOException e) {
-            System.out.println("Failed to read nbt!");
+            System.out.println("Failed to read nbt! IOException:" + e);
         }
         return null;
     }
@@ -54,7 +56,6 @@ The to call it in another script you would simply use:
 
 StructureReader.read_structure_file(
     "PATH_TO_NBT_FILE", // E.g. ".\generated\\minecraft\\structures\\house.nbt"
-    true // If the file is compressed or not
 );
 
 */
